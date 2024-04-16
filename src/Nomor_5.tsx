@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 interface Transition {
   [key: string]: string[];
@@ -28,6 +28,26 @@ const Nomor_5: React.FC = () => {
     accepting_states: [],
     strings: ""
   });
+
+  useEffect(() => {
+    handleChange()
+  }, [automata]);
+
+  const handleChange = async () => {
+    try {
+      const requestOptions: RequestInit = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(automata)
+      };
+      const res = await fetch('http://localhost:5000/nomor_5', requestOptions);
+      const data = await res.json();
+      setSvgResponse(data.svgResult);
+      console.log(automata)
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   // useEffect(() => {
   //   if (textareaRef.current) {
@@ -84,6 +104,7 @@ const Nomor_5: React.FC = () => {
         ...prevAutomata,
         states: [...prevAutomata.states, newState]
       }));
+      console.log(automata);
     }
   };
 
