@@ -40,7 +40,7 @@ const Nomor_5: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(automata)
       };
-      const res = await fetch('http://localhost:5000/nomor_5', requestOptions);
+      const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
       const data = await res.json();
       setSvgResponse(data.svgResult);
       console.log(automata)
@@ -62,6 +62,17 @@ const Nomor_5: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
+      if (automata.type === 'DFA'){
+        const hasEmptyTransition = Object.values(automata.transitions).some((transition: Record<string, string[]>) => {
+          return Object.keys(transition).length === 0 || Object.values(transition).some((toStates: string[]) => toStates.length === 0);
+        });
+
+        if (hasEmptyTransition) {
+          alert('Harap isi semua transisi.');
+          return;
+        }
+      }
+
       const requestOptions: RequestInit = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -161,6 +172,30 @@ const Nomor_5: React.FC = () => {
     }));
   };
 
+  const handleDFATransition = (stateFrom: string, alphabet: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stateTo = e.target.value;
+    setAutomata(prevAutomata => {
+      const newState = {
+        ...prevAutomata,
+        transitions: {
+          ...prevAutomata.transitions,
+          [stateFrom]: {
+            ...prevAutomata.transitions[stateFrom],
+            [alphabet]: stateTo ?
+                [stateTo] :
+                prevAutomata.transitions[stateFrom][alphabet].filter(item => item !== stateTo)
+          }
+        }
+      };
+
+      if (!stateTo) {
+        delete newState.transitions[stateFrom][alphabet];
+      }
+
+      return newState;
+    });
+  };
+
   return (
       <div className="flex justify-center items-center min-h-screen">
         <div className='w-full max-w-lg'>
@@ -215,17 +250,41 @@ const Nomor_5: React.FC = () => {
               </div>
             </div>
 
-            <div className='border my-4 py-2 pl-2'>
-              <p className='mb-2 text-xl'>Transition</p>
-              <button className='block' type="button" onClick={handleAddTransition}>Tambah Transition</button>
-              {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
-                  Object.entries(transitions).map(([alphabet, stateTo]) => (
-                      <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
-                        State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
-                      </li>
-                  ))
-              ))}
-            </div>
+            {automata.type == "DFA" ? (
+                <div className='border my-4 py-2 pl-2'>
+                  <p className='mb-2 text-xl'>Transition</p>
+                  {Object.entries(automata.states).map(([index, state_name]) =>
+                      <div className={'flex gap-3 pl-2 mt-3'}>
+                        <div key={index}>{state_name}</div>
+                        {Object.entries(automata.alphabet).map(([index, alphabetName]) => (
+                            <div className='flex gap-1'>
+                              <div key={index}>{alphabetName}</div>
+                              <select className='block w-36' onChange={handleDFATransition(state_name, alphabetName)}>
+                                <option key={index} value={""}></option>
+                                {automata.states.map((alphabetName, index) => (
+                                    <option key={index} value={alphabetName}>{alphabetName}</option>
+                                ))}
+                              </select>
+                            </div>
+                        ))}
+
+                      </div>
+                  )}
+                </div>
+            ) : (
+                <div className='border my-4 py-2 pl-2'>
+                  <p className='mb-2 text-xl'>Transition</p>
+                  <button className='block' type="button" onClick={handleAddTransition}>Tambah Transition</button>
+                  {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
+                      Object.entries(transitions).map(([alphabet, stateTo]) => (
+                          <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
+                            State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
+                          </li>
+                      ))
+                  ))}
+                </div>
+            )}
+
 
           </div>
         </div>

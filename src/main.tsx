@@ -9,6 +9,7 @@ import Nomor_3 from "./Nomor_3.tsx";
 import Nomor_4 from "./Nomor_4.tsx";
 import Home from "./Home.tsx";
 import Navbar from "./Navbar.tsx";
+import Test from "./Test.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <Route path={"/Nomor_3"} element={<Nomor_3 />} />
                         <Route path={"/Nomor_4"} element={<Nomor_4 />} />
                         <Route path={"/Nomor_5"} element={<Nomor_5 />} />
+                        <Route path={"/test"} element={<Test />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

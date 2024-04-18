@@ -26,7 +26,7 @@ const Nomor_3: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: jsonInput
       };
-      const res = await fetch('http://localhost:5000/nomor_5', requestOptions);
+      const res = await fetch('http://localhost:5000/nomor_3', requestOptions);
       const data = await res.json();
       setSvgResponse(data.svgResult);
       console.log(data.result);

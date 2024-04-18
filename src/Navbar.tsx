@@ -11,6 +11,7 @@ const Navbar: React.FC = () => {
                     <Link to={"/Nomor_3"} className='block mb-8'>Nomor 3</Link>
                     <Link to={"/Nomor_4"} className='block mb-8'>Nomor 4</Link>
                     <Link to={"/Nomor_5"} className='block mb-8'>Nomor 5</Link>
+                    <Link to={"/test"} className='block mb-8'>test</Link>
                 </div>
             </div>
         </div>

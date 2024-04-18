@@ -1,22 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Nomor_2: React.FC = () => {
-  const [jsonInput, setJsonInput] = useState<string>('');
+  const [regexInput, setRegexInput] = useState<string>('');
   const [svgResponse, setSvgResponse] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [jsonInput]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setJsonInput(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRegexInput(event.target.value);
   };
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,13 +14,12 @@ const Nomor_2: React.FC = () => {
       const requestOptions: RequestInit = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: jsonInput
+        body: JSON.stringify({ regexp: regexInput })
       };
-      const res = await fetch('http://localhost:5000/nomor_5', requestOptions);
+      const res = await fetch('http://localhost:5000/nomor_2', requestOptions);
       const data = await res.json();
       setSvgResponse(data.svgResult);
       console.log(data.result);
-      setResponse(data.result)
     } catch (error) {
       console.error('Error:', error);
     }
@@ -41,14 +30,13 @@ const Nomor_2: React.FC = () => {
         <div className="w-full max-w-md">
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <label className="block mb-2 w-full text-center">
-              Input JSON:
+              Input Regular Expression:
             </label>
-            <textarea
-                ref={textareaRef}
-                title="jsonInput"
-                value={jsonInput}
+            <input
+                type="text"
+                value={regexInput}
                 onChange={handleChange}
-                className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none"
+                className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
             <button
                 type="submit"
@@ -61,17 +49,7 @@ const Nomor_2: React.FC = () => {
               <div className="mt-8 w-full">
                 <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
                 <div className="flex justify-center items-center">
-                  <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
-                </div>
-              </div>
-          )}
-          {response && (
-              <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
-                <div className='flex justify-center items-center'>
-                  <div className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>
-                    <p>{response}</p>
-                  </div>
+                  <div dangerouslySetInnerHTML={{ __html: svgResponse }}></div>
                 </div>
               </div>
           )}

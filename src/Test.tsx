@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Nomor_1: React.FC = () => {
+const Test: React.FC = () => {
   const [jsonInput, setJsonInput] = useState<string>('');
-  const [svgResponse1, setSvgResponse1] = useState<string>('');
-  const [svgResponse2, setSvgResponse2] = useState<string>('');
+  const [svgResponse, setSvgResponse] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -26,18 +26,19 @@ const Nomor_1: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: jsonInput
       };
-      const res = await fetch('http://localhost:5000/nomor_1', requestOptions);
+      const res = await fetch('http://localhost:5000/nomor_5', requestOptions);
       const data = await res.json();
-      // console.log(data);
-      setSvgResponse1(data.result1);
-      setSvgResponse2(data.result2);
+      setSvgResponse(data.svgResult);
+      console.log(data.result);
+      setResponse(data.result)
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
+
   return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen h-fit">
         <div className="w-full max-w-md">
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <label className="block mb-2 w-full text-center">
@@ -57,26 +58,27 @@ const Nomor_1: React.FC = () => {
               Submit
             </button>
           </form>
-          {svgResponse1 && (
+          {svgResponse && (
               <div className="mt-8 w-full">
                 <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
                 <div className="flex justify-center items-center">
-                  <div dangerouslySetInnerHTML={{__html: svgResponse1}}></div>
+                  <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
                 </div>
               </div>
           )}
-          {svgResponse2 && (
+          {response && (
               <div className="mt-8 w-full">
                 <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
-                <div className="flex justify-center items-center">
-                  <div dangerouslySetInnerHTML={{__html: svgResponse2}}></div>
+                <div className='flex justify-center items-center'>
+                  <div className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>
+                    <p>{response}</p>
+                  </div>
                 </div>
               </div>
           )}
-
         </div>
       </div>
   );
 };
 
-export default Nomor_1;
+export default Test;
