@@ -311,7 +311,6 @@ const Nomor_4: React.FC = () => {
 
         const res = await fetch('http://localhost:5000/nomor_4', requestOptions);
         const data = await res.json();
-        setSvgResponse1(data.svgResult);
         setResponse(data.result);
       } else {
         return;
