@@ -62,12 +62,12 @@ const Nomor_5: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      if (automata.type === 'DFA'){
+      if (automata.type === 'DFA') {
         const hasEmptyTransition = Object.values(automata.transitions).some((transition: Record<string, string[]>) => {
           return Object.keys(transition).length === 0 || Object.values(transition).some((toStates: string[]) => toStates.length === 0);
         });
 
-        if (hasEmptyTransition) {
+        if (Object.keys(automata.transitions).length === 0 || hasEmptyTransition) {
           alert('Harap isi semua transisi.');
           return;
         }
@@ -206,7 +206,7 @@ const Nomor_5: React.FC = () => {
                 <option value="">Pilih jenis</option>
                 <option value="DFA">DFA</option>
                 <option value="NFA">NFA</option>
-                <option value="E-NFA">E-NFA</option>
+                <option value="ENFA">E-NFA</option>
               </select>
             </label>
 
