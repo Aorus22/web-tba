@@ -322,7 +322,7 @@ const Nomor_4: React.FC = () => {
 
   return (
       <div>
-        <div className="flex justify-center items-center gap-20 min-h-screen h-fit">
+        <div className="flex justify-center items-center gap-20 h-fit">
           <div className="w-full max-w-md">
             <div>
               <div className='my-4 border py-2 pl-2'>
@@ -530,8 +530,8 @@ const Nomor_4: React.FC = () => {
           <button className='block' onClick={handleSubmit}>Submit</button>
         </div>
 
-        <div className={'m-4 gap-3'}>
-          <div className={'mb-8'}>
+        <div className={'flex-col w-full m-4'}>
+          <div className={'w-full block mb-8'}>
             {JSON.stringify(automata1)}
           </div>
           <div>
@@ -539,22 +539,25 @@ const Nomor_4: React.FC = () => {
           </div>
         </div>
 
-        {svgResponse1 && (
-            <div className="mt-8 w-full">
-              <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
-              <div className="flex justify-center items-center">
-                <div dangerouslySetInnerHTML={{__html: svgResponse1}}></div>
+        <div className={'grid grid-cols-2'}>
+          {svgResponse1 && (
+              <div className="mt-8 w-full">
+                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+                <div className="flex justify-center items-center">
+                  <div dangerouslySetInnerHTML={{__html: svgResponse1}}></div>
+                </div>
               </div>
-            </div>
-        )}
-        {svgResponse2 && (
-            <div className="mt-8 w-full">
-              <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
-              <div className="flex justify-center items-center">
-                <div dangerouslySetInnerHTML={{__html: svgResponse2}}></div>
+          )}
+          {svgResponse2 && (
+              <div className="mt-8 w-full">
+                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+                <div className="flex justify-center items-center">
+                  <div dangerouslySetInnerHTML={{__html: svgResponse2}}></div>
+                </div>
               </div>
-            </div>
-        )}
+          )}
+        </div>
+
         {response && (
             <div className="mt-8 w-full">
               <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
