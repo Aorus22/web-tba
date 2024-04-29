@@ -10,20 +10,38 @@ const Nomor_2: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const test = tambahkanTitik(regexInput)
+    console.log(test)
     try {
       const requestOptions: RequestInit = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ regexp: regexInput })
+        body: JSON.stringify({ regexp: test })
       };
       const res = await fetch('http://localhost:5000/nomor_2', requestOptions);
       const data = await res.json();
       setSvgResponse(data.svgResult);
-      console.log(data.result);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  const tambahkanTitik = (str: string): string => {
+    let hasil = '';
+    for (let i = 0; i < str.length; i++) {
+        const currentChar = str[i];
+        hasil += currentChar;
+        if (i < str.length - 1) {
+            const nextChar = str[i + 1];
+            if ((/[0-9.)]/).test(currentChar)) {
+                if ((/[0-9a-zA-Z(]/).test(nextChar)) {
+                    hasil += '.';
+                }
+            }
+        }
+    }
+    return hasil;
+  }
 
   return (
       <div className={"flex flex-col justify-center items-center min-h-screen"}>
