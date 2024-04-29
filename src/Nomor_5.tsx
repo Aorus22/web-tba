@@ -72,10 +72,13 @@ const Nomor_5: React.FC = () => {
       <div className={"items-center min-h-screen p-8"}>
         <p className={"text-4xl text-center"}>Test String pada DFA, NFA, E-NFA, dan Regex</p>
 
-        <div className="grid grid-cols-2 justify-center pt-8">
+        <div className="grid grid-cols-2 justify-center pt-8 px-24">
           <div className="w-full">
-            <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={true}/>
+            <div className={'px-5'}>
+              <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={false}/>
+            </div>
           </div>
+
 
           <div className="w-full">
             <div className='rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-2 pl-2 ml-4'>
@@ -101,14 +104,15 @@ const Nomor_5: React.FC = () => {
               </div>
             </div>
             {response && (
-              <div className="mt-8 w-full m-4 h-48">
-                <h2 className="text-center text-lg font-semibold mb-4">Hasil:</h2>
-                <div className='flex justify-center items-center'>
-                  <div className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>
-                    <p>{response}</p>
+                <div className="mt-8 w-full m-4 h-48">
+                  <h2 className="text-center text-lg font-semibold mb-4">Hasil:</h2>
+                  <div className='flex justify-center items-center'>
+                    <div
+                        className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>
+                      <p>{response}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
             )}
           </div>
         </div>
