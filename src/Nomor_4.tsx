@@ -40,41 +40,24 @@ const Nomor_4: React.FC = () => {
     strings: ""
   });
 
-  const handleChange1 = async () => {
+  const handleChange = async (automata: Input_Automata, SvgResponse: React.Dispatch<React.SetStateAction<string>>) => {
     try {
       const requestOptions: RequestInit = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(automata1)
+        body: JSON.stringify(automata)
       };
       const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
       const data = await res.json();
-      setSvgResponse1(data.svgResult);
-      console.log(automata1)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const handleChange2 = async () => {
-    try {
-      const requestOptions: RequestInit = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(automata2)
-      };
-      const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
-      const data = await res.json();
-      setSvgResponse2(data.svgResult);
-      console.log(automata2)
+      SvgResponse(data.svgResult);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   useEffect(() => {
-    handleChange1()
-    handleChange2()
+    handleChange(automata1, setSvgResponse1)
+    handleChange(automata2, setSvgResponse2)
   }, [automata1, automata2]);
 
   const checkTransitions = (automata: Input_Automata) => {

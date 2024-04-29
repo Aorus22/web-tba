@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Routes>
                     <Route path="/" element={
                         <div className={'w-screen'}>
-                            <div className="z-10 fixed top-0 left-0 right-0">
+                            <div className="z-10 w-48 fixed top-0 left-0 right-0">
                                 <Navbar />
                             </div>
                             <div className="z-0 pl-48 h-full">

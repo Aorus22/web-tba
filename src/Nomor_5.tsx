@@ -84,7 +84,7 @@ const Nomor_5: React.FC = () => {
             <div className='rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-2 pl-2 ml-4'>
               <p className='text-xl mb-1 font-bold'>Test String</p>
               <hr className='mb-4 w-36'/>
-              <input className="h-12 p-4 bg-gray-600 rounded" value={automata.strings} onChange={handleStringChange}/>
+              <input title='Input String'  className="h-12 p-4 bg-gray-600 rounded" value={automata.strings} onChange={handleStringChange}/>
             </div>
             {/*<div className={'m-4 flex gap-3'}>*/}
             {/*  {JSON.stringify(automata)}*/}

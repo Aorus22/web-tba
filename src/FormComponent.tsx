@@ -141,7 +141,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                         <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
                             <p className='text-xl mb-1 font-bold'>Jenis Automata</p>
                             <hr className='mb-4 w-36'/>
-                            <select className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.type} onChange={handleTypeChange}>
+                            <select title='Input Tipe' className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.type} onChange={handleTypeChange}>
                                 <option value="">Pilih jenis</option>
                                 <option value="DFA">DFA</option>
                                 <option value="NFA">NFA</option>
@@ -175,7 +175,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                     <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
                         <p className='text-xl mb-1 font-bold'>Start State</p>
                         <hr className='mb-4 w-36'/>
-                        <select className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.start_state} onChange={handleStartStateChange}>
+                        <select title='Input Start State' className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.start_state} onChange={handleStartStateChange}>
                             <option value="">Pilih Start State</option>
                             {automata.states.map(state => (
                                 <option key={state} value={state}>{state}</option>
@@ -208,7 +208,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                                             {Object.entries(automata.alphabet).map(([index, alphabetName]) => (
                                                 <div className='flex gap-1'>
                                                     <div key={index}>{alphabetName}</div>
-                                                    <select className='w-10 bg-gray-600' onChange={handleDFATransition(state_name, alphabetName)}>
+                                                    <select title='Input Transisi' className='w-10 bg-gray-600' onChange={handleDFATransition(state_name, alphabetName)}>
                                                         <option key={index} value={""}></option>
                                                         {automata.states.map((alphabetName, index) => (
                                                             <option key={index} value={alphabetName}>{alphabetName}</option>
@@ -229,13 +229,15 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                             </button>
                             <div className={"py-2"}>
                                 {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
-                                    Object.entries(transitions).map(([alphabet, stateTo]) => (
-                                        (stateTo.length > 0 && (
-                                            <li className={"mb-2"} key={`${stateFrom}-${alphabet}-${stateTo}`}>
-                                                {stateFrom} {'->'} {stateTo} ({alphabet})
-                                            </li>
-                                        ))
-                                    ))
+                                    <ul key={stateFrom}>
+                                        {Object.entries(transitions).map(([alphabet, stateTo]) => (
+                                            stateTo.length > 0 && (
+                                                <li className={"mb-2"} key={`${stateFrom}-${alphabet}-${stateTo}`}>
+                                                    {stateFrom} {'->'} {stateTo} ({alphabet})
+                                                </li>
+                                            )
+                                        ))}
+                                    </ul>
                                 ))}
                             </div>
                         </div>

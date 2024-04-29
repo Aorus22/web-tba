@@ -35,6 +35,7 @@ const Nomor_2: React.FC = () => {
                 Input Regular Expression:
               </label>
               <input
+                  title='Input Regex'
                   type="text"
                   value={regexInput}
                   onChange={handleChange}
