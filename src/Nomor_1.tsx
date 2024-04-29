@@ -28,23 +28,23 @@ const Nomor_3: React.FC = () => {
     strings: ""
   });
 
-  const handleChange = async () => {
-    try {
-      const requestOptions: RequestInit = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(automata)
-      };
-      const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
-      const data = await res.json();
-      setSvgResponse1(data.svgResult);
-      console.log(automata)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   useEffect(() => {
+    const handleChange = async () => {
+      try {
+        const requestOptions: RequestInit = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(automata)
+        };
+        const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
+        const data = await res.json();
+        setSvgResponse1(data.svgResult);
+        console.log(automata)
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
     handleChange()
   }, [automata]);
 
@@ -104,7 +104,13 @@ const Nomor_3: React.FC = () => {
     if (newState) {
       setAutomata(prevAutomata => ({
         ...prevAutomata,
-        states: [...prevAutomata.states, newState]
+        states: [...prevAutomata.states, newState],
+        transitions: {
+          ...prevAutomata.transitions,
+          [newState]: Object.fromEntries(
+              prevAutomata.alphabet.map(alphabet => [alphabet, []])
+          )
+        }
       }));
       console.log(automata);
     }
@@ -115,10 +121,16 @@ const Nomor_3: React.FC = () => {
     if (newAlphabet) {
       setAutomata(prevAutomata => ({
         ...prevAutomata,
-        alphabet: [...prevAutomata.alphabet, newAlphabet]
+        alphabet: [...prevAutomata.alphabet, newAlphabet],
+        transitions: Object.fromEntries(
+            prevAutomata.states.map(state => [
+              state,
+              { ...prevAutomata.transitions[state], [newAlphabet]: [] }
+            ])
+        )
       }));
     }
-  }
+  };
 
   const handleAddAcceptingState = () => {
     const acceptingState = prompt("Pilih accepting state:");

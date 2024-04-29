@@ -58,9 +58,14 @@ const Nomor_4: React.FC = () => {
     if (newState) {
       setAutomata1(prevAutomata => ({
         ...prevAutomata,
-        states: [...prevAutomata.states, newState]
+        states: [...prevAutomata.states, newState],
+        transitions: {
+          ...prevAutomata.transitions,
+          [newState]: Object.fromEntries(
+              prevAutomata.alphabet.map(alphabet => [alphabet, []])
+          )
+        }
       }));
-      console.log(automata1);
     }
   };
 
@@ -69,10 +74,16 @@ const Nomor_4: React.FC = () => {
     if (newAlphabet) {
       setAutomata1(prevAutomata => ({
         ...prevAutomata,
-        alphabet: [...prevAutomata.alphabet, newAlphabet]
+        alphabet: [...prevAutomata.alphabet, newAlphabet],
+        transitions: Object.fromEntries(
+            prevAutomata.states.map(state => [
+              state,
+              { ...prevAutomata.transitions[state], [newAlphabet]: [] }
+            ])
+        )
       }));
     }
-  }
+  };
 
   const handleAddAcceptingState1 = () => {
     const acceptingState = prompt("Pilih accepting state:");
@@ -148,9 +159,14 @@ const Nomor_4: React.FC = () => {
     if (newState) {
       setAutomata2(prevAutomata => ({
         ...prevAutomata,
-        states: [...prevAutomata.states, newState]
+        states: [...prevAutomata.states, newState],
+        transitions: {
+          ...prevAutomata.transitions,
+          [newState]: Object.fromEntries(
+              prevAutomata.alphabet.map(alphabet => [alphabet, []])
+          )
+        }
       }));
-      console.log(automata1);
     }
   };
 
@@ -159,14 +175,20 @@ const Nomor_4: React.FC = () => {
     if (newAlphabet) {
       setAutomata2(prevAutomata => ({
         ...prevAutomata,
-        alphabet: [...prevAutomata.alphabet, newAlphabet]
+        alphabet: [...prevAutomata.alphabet, newAlphabet],
+        transitions: Object.fromEntries(
+            prevAutomata.states.map(state => [
+              state,
+              { ...prevAutomata.transitions[state], [newAlphabet]: [] }
+            ])
+        )
       }));
     }
-  }
+  };
 
   const handleAddAcceptingState2 = () => {
     const acceptingState = prompt("Pilih accepting state:");
-    if (acceptingState && automata1.states.includes(acceptingState)) {
+    if (acceptingState && automata2.states.includes(acceptingState)) {
       setAutomata2(prevAutomata => ({
         ...prevAutomata,
         accepting_states: [...prevAutomata.accepting_states, acceptingState]

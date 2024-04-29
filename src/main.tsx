@@ -17,11 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={
-                        <div>
+                        <div className={'w-screen'}>
                             <div className="z-50 fixed top-0 left-0 right-0">
                                 <Navbar />
                             </div>
-                            <div className="z-0 relative pl-72 h-full">
+                            <div className="z-0 pl-72 h-full">
                                 <Outlet />
                             </div>
                         </div>

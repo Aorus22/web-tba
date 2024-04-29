@@ -30,24 +30,24 @@ const Nomor_5: React.FC = () => {
   });
 
   useEffect(() => {
+    const handleChange = async () => {
+      try {
+        const requestOptions: RequestInit = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(automata)
+        };
+        const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
+        const data = await res.json();
+        setSvgResponse(data.svgResult);
+        console.log(automata)
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
     handleChange()
   }, [automata]);
 
-  const handleChange = async () => {
-    try {
-      const requestOptions: RequestInit = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(automata)
-      };
-      const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
-      const data = await res.json();
-      setSvgResponse(data.svgResult);
-      console.log(automata)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
 
   // useEffect(() => {
   //   if (textareaRef.current) {
@@ -113,7 +113,13 @@ const Nomor_5: React.FC = () => {
     if (newState) {
       setAutomata(prevAutomata => ({
         ...prevAutomata,
-        states: [...prevAutomata.states, newState]
+        states: [...prevAutomata.states, newState],
+        transitions: {
+          ...prevAutomata.transitions,
+          [newState]: Object.fromEntries(
+              prevAutomata.alphabet.map(alphabet => [alphabet, []])
+          )
+        }
       }));
       console.log(automata);
     }
@@ -124,10 +130,16 @@ const Nomor_5: React.FC = () => {
     if (newAlphabet) {
       setAutomata(prevAutomata => ({
         ...prevAutomata,
-        alphabet: [...prevAutomata.alphabet, newAlphabet]
+        alphabet: [...prevAutomata.alphabet, newAlphabet],
+        transitions: Object.fromEntries(
+            prevAutomata.states.map(state => [
+              state,
+              { ...prevAutomata.transitions[state], [newAlphabet]: [] }
+            ])
+        )
       }));
     }
-  }
+  };
 
   const handleAddAcceptingState = () => {
     const acceptingState = prompt("Pilih accepting state:");
@@ -277,9 +289,11 @@ const Nomor_5: React.FC = () => {
                   <button className='block' type="button" onClick={handleAddTransition}>Tambah Transition</button>
                   {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
                       Object.entries(transitions).map(([alphabet, stateTo]) => (
-                          <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
-                            State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
-                          </li>
+                          (stateTo.length > 0 && (
+                              <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
+                                State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
+                              </li>
+                          ))
                       ))
                   ))}
                 </div>
