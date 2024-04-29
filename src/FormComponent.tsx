@@ -197,27 +197,29 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                     </div>
 
                     {automata.type == "DFA" ? (
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 pb-4 py-2 pl-2'>
                             <p className='text-xl mb-1 font-bold'>Transition</p>
                             <hr className='mb-4 w-36'/>
-                            {Object.entries(automata.states).map(([index, state_name]) =>
-                                <div className={'flex gap-3 pl-2 mt-3'}>
-                                    <div key={index}>{state_name}</div>
-                                    {Object.entries(automata.alphabet).map(([index, alphabetName]) => (
-                                        <div className='flex gap-1'>
-                                            <div key={index}>{alphabetName}</div>
-                                            <select className='block w-36'
-                                                    onChange={handleDFATransition(state_name, alphabetName)}>
-                                                <option key={index} value={""}></option>
-                                                {automata.states.map((alphabetName, index) => (
-                                                    <option key={index} value={alphabetName}>{alphabetName}</option>
-                                                ))}
-                                            </select>
+                            <div>
+                                {Object.entries(automata.states).map(([index, state_name]) =>
+                                    <div className={'flex gap-3 pl-2 mt-3'}>
+                                        <div key={index}>{state_name}</div>
+                                        <div className={"grid grid-cols-4 gap-3"}>
+                                            {Object.entries(automata.alphabet).map(([index, alphabetName]) => (
+                                                <div className='flex gap-1'>
+                                                    <div key={index}>{alphabetName}</div>
+                                                    <select className='w-10 bg-gray-600' onChange={handleDFATransition(state_name, alphabetName)}>
+                                                        <option key={index} value={""}></option>
+                                                        {automata.states.map((alphabetName, index) => (
+                                                            <option key={index} value={alphabetName}>{alphabetName}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-
-                                </div>
-                            )}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ) : (
                         <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
@@ -225,15 +227,17 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                             <hr className='mb-4 w-36' />
                             <button className='block bg-blue-950' type="button" onClick={handleAddTransition}>Tambah Transition
                             </button>
-                            {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
-                                Object.entries(transitions).map(([alphabet, stateTo]) => (
-                                    (stateTo.length > 0 && (
-                                        <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
-                                            State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
-                                        </li>
+                            <div className={"py-2"}>
+                                {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
+                                    Object.entries(transitions).map(([alphabet, stateTo]) => (
+                                        (stateTo.length > 0 && (
+                                            <li className={"mb-2"} key={`${stateFrom}-${alphabet}-${stateTo}`}>
+                                                {stateFrom} {'->'} {stateTo} ({alphabet})
+                                            </li>
+                                        ))
                                     ))
-                                ))
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     )}
 

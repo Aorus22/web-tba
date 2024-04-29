@@ -9,7 +9,7 @@ import Nomor_3 from "./Nomor_3.tsx";
 import Nomor_4 from "./Nomor_4.tsx";
 import Home from "./Home.tsx";
 import Navbar from "./Navbar.tsx";
-import Test from "./Test.tsx";
+// import Test from "./Test.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
@@ -18,10 +18,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Routes>
                     <Route path="/" element={
                         <div className={'w-screen'}>
-                            <div className="z-50 fixed top-0 left-0 right-0">
+                            <div className="z-10 fixed top-0 left-0 right-0">
                                 <Navbar />
                             </div>
-                            <div className="z-0 pl-72 h-full">
+                            <div className="z-0 pl-48 h-full">
                                 <Outlet />
                             </div>
                         </div>
@@ -32,7 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <Route path={"/Nomor_3"} element={<Nomor_3 />} />
                         <Route path={"/Nomor_4"} element={<Nomor_4 />} />
                         <Route path={"/Nomor_5"} element={<Nomor_5 />} />
-                        <Route path={"/test"} element={<Test />} />
+                        {/*<Route path={"/test"} element={<Test />} />*/}
                     </Route>
                 </Routes>
             </BrowserRouter>

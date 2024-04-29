@@ -26,35 +26,42 @@ const Nomor_2: React.FC = () => {
   };
 
   return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-full max-w-md">
-          <form onSubmit={handleSubmit} className="space-y-4 w-full">
-            <label className="block mb-2 w-full text-center">
-              Input Regular Expression:
-            </label>
-            <input
-                type="text"
-                value={regexInput}
-                onChange={handleChange}
-                className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-            <button
-                type="submit"
-                className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Submit
-            </button>
-          </form>
-          {svgResponse && (
-              <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
-                <div className="flex justify-center items-center">
-                  <div dangerouslySetInnerHTML={{ __html: svgResponse }}></div>
-                </div>
-              </div>
-          )}
+      <div className={"flex flex-col justify-center items-center min-h-screen"}>
+        <p className={"text-4xl text-center mb-16"}>Konversi Regex ke E-NFA</p>
+        <div className="flex justify-center items-center">
+          <div className="w-full max-w-md">
+            <form onSubmit={handleSubmit} className="space-y-4 w-full">
+              <label className="block mb-2 w-full text-center">
+                Input Regular Expression:
+              </label>
+              <input
+                  type="text"
+                  value={regexInput}
+                  onChange={handleChange}
+                  className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+              <button
+                  type="submit"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Submit
+              </button>
+            </form>
+            <div className={"min-h-96"}>
+              {svgResponse && (
+                  <div className="mt-8 w-full">
+                    <h2 className="text-center text-lg font-semibold mb-4">Hasil</h2>
+                    <div className="flex justify-center items-center">
+                      <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
+                    </div>
+                  </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
+
+
   );
 };
 

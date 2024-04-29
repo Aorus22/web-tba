@@ -79,7 +79,7 @@ const Nomor_3: React.FC = () => {
 
   return (
       <div className={"items-center min-h-screen p-8"}>
-        <p className={"text-4xl text-center mb-8"}>Ubah NFA / E-NFA ke DFA</p>
+        <p className={"text-4xl text-center mb-8"}>Konversi NFA / E-NFA ke DFA</p>
         <div className="grid grid-cols-2 justify-center px-24">
           <div className="w-full">
             <div className={'px-5'}>
