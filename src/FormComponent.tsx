@@ -135,7 +135,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
 
     return (
         <div>
-            <div className='w-full max-w-lg'>
+            <div className='w-full'>
                 <div>
                     {isUseinputType && (
                         <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>

@@ -118,36 +118,41 @@ const Nomor_4: React.FC = () => {
   };
 
   return (
-      <div>
-        <div className="flex justify-center items-center gap-20 h-fit">
-          <div className="w-full max-w-md">
+      <div className={"items-center min-h-screen p-8 pb-24"}>
+        <p className={"text-4xl text-center"}>Ekuivalensi 2 DFA</p>
 
-            <FormComponent automata={automata1} setAutomata={setAutomata1} isUseinputType={false} />
+        <div className="grid grid-cols-2 justify-center pt-10">
+          <div className="w-full">
+            <div className={'px-5'}>
+              <FormComponent automata={automata1} setAutomata={setAutomata1} isUseinputType={false}/>
+            </div>
           </div>
-          <div className="w-full max-w-md">
-            <FormComponent automata={automata2} setAutomata={setAutomata2} isUseinputType={false} />
 
+          <div className="w-full">
+            <div className={'px-5'}>
+              <FormComponent automata={automata2} setAutomata={setAutomata2} isUseinputType={false}/>
+            </div>
           </div>
 
         </div>
 
-        <div className='w-full flex justify-center m-4'>
+        <div className='w-full flex justify-center mt-10'>
           <button className='block' onClick={handleSubmit}>Submit</button>
         </div>
 
-        <div className={'flex-col w-full m-4'}>
-          <div className={'w-full block mb-8'}>
-            {JSON.stringify(automata1)}
-          </div>
-          <div>
-            {JSON.stringify(automata2)}
-          </div>
-        </div>
+        {/*<div className={'flex-col w-full m-4'}>*/}
+        {/*  <div className={'w-full block mb-8'}>*/}
+        {/*    {JSON.stringify(automata1)}*/}
+        {/*  </div>*/}
+        {/*  <div>*/}
+        {/*    {JSON.stringify(automata2)}*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
         <div className={'grid grid-cols-2'}>
           {svgResponse1 && (
               <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+                <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
                 <div className="flex justify-center items-center">
                   <div dangerouslySetInnerHTML={{__html: svgResponse1}}></div>
                 </div>
@@ -155,7 +160,7 @@ const Nomor_4: React.FC = () => {
           )}
           {svgResponse2 && (
               <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+                <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
                 <div className="flex justify-center items-center">
                   <div dangerouslySetInnerHTML={{__html: svgResponse2}}></div>
                 </div>
@@ -165,7 +170,7 @@ const Nomor_4: React.FC = () => {
 
         {response && (
             <div className="mt-8 w-full">
-              <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+              <h2 className="text-center text-lg font-semibold mb-4">Hasil</h2>
               <div className="flex justify-center items-center">
                 <div
                     className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>

@@ -97,11 +97,11 @@ const Nomor_3: React.FC = () => {
         </div>
 
         <div className="w-full max-w-md">
-
-          <label className='block text-xl border py-2 pl-2 ml-4 w-full'>
-            <p className='mb-2'>Test String</p>
-            <input value={automata.strings} onChange={handleStringChange}/>
-          </label>
+          <div className='block rounded bg-gray-950 bg-opacity-50 text-xl  py-2 pl-2 ml-4 w-full'>
+            <p className='text-xl mb-1 font-bold'>Test String</p>
+            <hr className='mb-4 w-36'/>
+            <input className="h-12 p-4 bg-gray-600 rounded" value={automata.strings} onChange={handleStringChange}/>
+          </div>
           <div className={'m-4 flex gap-3'}>
             {JSON.stringify(automata)}
           </div>
