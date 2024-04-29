@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import FormComponent from "./FormComponent.tsx";
 
 interface Transition {
   [key: string]: string[];
@@ -14,23 +15,18 @@ interface Input_Automata {
 }
 
 const Nomor_3: React.FC = () => {
-  // const [jsonInput, setJsonInput] = useState<string>('');
   const [svgResponse1, setSvgResponse1] = useState<string>('');
   const [svgResponse2, setSvgResponse2] = useState<string>('');
   const [response1, setResponse1] = useState<string>('');
   const [response2, setResponse2] = useState<string>('');
-  // const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [automata, setAutomata] = useState<Input_Automata>({
-    "type": "DFA",
-    "states": ["q0", "q1"],
-    "alphabet": ["0", "1"],
-    "transitions": {
-      "q0": {"0": ["q0"], "1": ["q1"]},
-      "q1": {"0": ["q0"], "1": ["q1"]}
-    },
-    "start_state": "q0",
-    "accepting_states": ["q1"],
-    "strings": "000201"
+    type: "DFA",
+    states: [],
+    alphabet: [],
+    transitions: {},
+    start_state: "",
+    accepting_states: [],
+    strings: ""
   });
 
   const handleChange = async () => {
@@ -52,19 +48,6 @@ const Nomor_3: React.FC = () => {
   useEffect(() => {
     handleChange()
   }, [automata]);
-
-
-
-  // useEffect(() => {
-  //   if (textareaRef.current) {
-  //     textareaRef.current.style.height = 'auto';
-  //     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-  //   }
-  // }, [jsonInput]);
-
-  // const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   setJsonInput(event.target.value);
-  // };
 
   const handleSubmit = async () => {
     try {
@@ -97,83 +80,6 @@ const Nomor_3: React.FC = () => {
     }
   };
 
-  const handleStartStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newStartState = e.target.value
-    if (newStartState) {
-      setAutomata(prevAutomata => ({
-        ...prevAutomata,
-        start_state: newStartState
-      }));
-    }
-  };
-
-  const handleAddState = () => {
-    const newState = prompt("Masukkan nama state baru:");
-    if (newState) {
-      setAutomata(prevAutomata => ({
-        ...prevAutomata,
-        states: [...prevAutomata.states, newState],
-        transitions: {
-          ...prevAutomata.transitions,
-          [newState]: Object.fromEntries(
-              prevAutomata.alphabet.map(alphabet => [alphabet, []])
-          )
-        }
-      }));
-      console.log(automata);
-    }
-  };
-
-  const handleAddAlphabet = () => {
-    const newAlphabet = prompt("Masukkan Alphabet baru:");
-    if (newAlphabet) {
-      setAutomata(prevAutomata => ({
-        ...prevAutomata,
-        alphabet: [...prevAutomata.alphabet, newAlphabet],
-        transitions: Object.fromEntries(
-            prevAutomata.states.map(state => [
-              state,
-              { ...prevAutomata.transitions[state], [newAlphabet]: [] }
-            ])
-        )
-      }));
-    }
-  };
-
-  const handleAddAcceptingState = () => {
-    const acceptingState = prompt("Pilih accepting state:");
-    if (acceptingState && automata.states.includes(acceptingState)) {
-      setAutomata(prevAutomata => ({
-        ...prevAutomata,
-        accepting_states: [...prevAutomata.accepting_states, acceptingState]
-      }));
-    } else {
-      alert("State yang dimasukkan bukan merupakan state yang valid.");
-    }
-  };
-
-  const handleAddTransition = () => {
-    const stateFrom = prompt("Masukkan state asal:");
-    const stateTo = prompt("Masukkan state tujuan:");
-    let alphabet = prompt("Masukkan alphabet untuk transisi:");
-
-    if (alphabet == "epsilon" || alphabet == null){
-      alphabet = ""
-    }
-
-    if (stateFrom && stateTo) {
-      setAutomata(prevAutomata => ({
-        ...prevAutomata,
-        transitions: {
-          ...prevAutomata.transitions,
-          [stateFrom]: {
-            ...prevAutomata.transitions[stateFrom],
-            [alphabet]: [...(prevAutomata.transitions[stateFrom]?.[alphabet] || []), stateTo]
-          }
-        }
-      }));
-    }
-  };
 
 
   const handleStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,130 +89,11 @@ const Nomor_3: React.FC = () => {
     }));
   };
 
-  const handleDFATransition = (stateFrom: string, alphabet: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const stateTo = e.target.value;
-    setAutomata(prevAutomata => {
-      const newState = {
-        ...prevAutomata,
-        transitions: {
-          ...prevAutomata.transitions,
-          [stateFrom]: {
-            ...prevAutomata.transitions[stateFrom],
-            [alphabet]: stateTo ?
-                [stateTo] :
-                prevAutomata.transitions[stateFrom][alphabet].filter(item => item !== stateTo)
-          }
-        }
-      };
-
-      if (!stateTo) {
-        delete newState.transitions[stateFrom][alphabet];
-      }
-
-      return newState;
-    });
-  };
 
   return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-md">
-          <div>
-            <div className='my-4 border py-2 pl-2'>
-              <p className='mb-2 text-xl'>State</p>
-              <button className='block' type="button" onClick={handleAddState}>Tambah State</button>
-              <div className='my-2 flex gap-3'>
-                {automata.states.map(state => (
-                    <div className='rounded bg-green-900 w-fit p-3'>{state}</div>
-                ))}
-              </div>
-            </div>
-
-            <div className='my-4 border py-2 pl-2'>
-              <p className='mb-2 text-xl'>Alphabet</p>
-              <button className='block' type="button" onClick={handleAddAlphabet}>Tambah Alphabet</button>
-              <div className='my-2 flex gap-3'>
-                {automata.alphabet.map(alphabet => (
-                    <div className='rounded bg-green-900 w-fit p-3'>{alphabet}</div>
-                ))}
-              </div>
-            </div>
-
-            <label className='block text-xl border py-2 pl-2'>
-              <p className='mb-2'>Start State</p>
-              <select className='block' value={automata.start_state} onChange={handleStartStateChange}>
-                <option value="">Pilih Start State</option>
-                {automata.states.map(state => (
-                    <option key={state} value={state}>{state}</option>
-                ))}
-              </select>
-            </label>
-
-            <div className='border my-4 py-2 pl-2'>
-              <p className='mb-2 text-xl'>Accepting State</p>
-              <button className='block' type="button" onClick={handleAddAcceptingState}>Tambah Accepting State</button>
-              <div className='flex gap-3 mt-2'>
-                {automata.accepting_states.map(state => (
-                    <div className='rounded bg-green-900 w-fit p-3'>{state}</div>
-                ))}
-              </div>
-            </div>
-
-            {automata.type == "DFA" ? (
-                <div className='border my-4 py-2 pl-2'>
-                  <p className='mb-2 text-xl'>Transition</p>
-                  {Object.entries(automata.states).map(([index, state_name]) =>
-                      <div className={'flex gap-3 pl-2 mt-3'}>
-                        <div key={index}>{state_name}</div>
-                        {Object.entries(automata.alphabet).map(([index, alphabetName]) => (
-                            <div className='flex gap-1'>
-                              <div key={index}>{alphabetName}</div>
-                              <select className='block w-36' onChange={handleDFATransition(state_name, alphabetName)}>
-                                <option key={index} value={""}></option>
-                                {automata.states.map((alphabetName, index) => (
-                                    <option key={index} value={alphabetName}>{alphabetName}</option>
-                                ))}
-                              </select>
-                            </div>
-                        ))}
-
-                      </div>
-                  )}
-                </div>
-            ) : (
-                <div className='border my-4 py-2 pl-2'>
-                  <p className='mb-2 text-xl'>Transition</p>
-                  <button className='block' type="button" onClick={handleAddTransition}>Tambah Transition</button>
-                  {Object.entries(automata.transitions).map(([stateFrom, transitions]) => (
-                      Object.entries(transitions).map(([alphabet, stateTo]) => (
-                          <li key={`${stateFrom}-${alphabet}-${stateTo}`}>
-                            State Asal: {stateFrom}, State Tujuan: {stateTo}, Alphabet: {alphabet}
-                          </li>
-                      ))
-                  ))}
-                </div>
-            )}
-
-
-          </div>
-          {/*<form onSubmit={handleSubmit} className="space-y-4 w-full">*/}
-          {/*  <label className="block mb-2 w-full text-center">*/}
-          {/*    Input JSON:*/}
-          {/*  </label>*/}
-          {/*  <textarea*/}
-          {/*      ref={textareaRef}*/}
-          {/*      title="jsonInput"*/}
-          {/*      value={jsonInput}*/}
-          {/*      onChange={handleChange}*/}
-          {/*      className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none"*/}
-          {/*  />*/}
-          {/*  <button*/}
-          {/*      type="submit"*/}
-          {/*      className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"*/}
-          {/*  >*/}
-          {/*    Submit*/}
-          {/*  </button>*/}
-          {/*</form>*/}
-
+          <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={false} />
         </div>
 
         <div className="w-full max-w-md">
@@ -362,25 +149,6 @@ const Nomor_3: React.FC = () => {
                 </div>
             )}
           </div>
-          {/*<form onSubmit={handleSubmit} className="space-y-4 w-full">*/}
-          {/*    <label className="block mb-2 w-full text-center">*/}
-          {/*      Input JSON:*/}
-          {/*    </label>*/}
-          {/*    <textarea*/}
-          {/*        ref={textareaRef}*/}
-          {/*        title="jsonInput"*/}
-          {/*        value={jsonInput}*/}
-          {/*        onChange={handleChange}*/}
-          {/*        className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none"*/}
-          {/*    />*/}
-          {/*    <button*/}
-          {/*        type="submit"*/}
-          {/*        className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"*/}
-          {/*    >*/}
-          {/*      Submit*/}
-          {/*    </button>*/}
-          {/*  </form>*/}
-
         </div>
       </div>
   );
