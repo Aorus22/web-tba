@@ -75,7 +75,7 @@ const Nomor_5: React.FC = () => {
         <div className="grid grid-cols-2 justify-center pt-8 px-24">
           <div className="w-full">
             <div className={'px-5'}>
-              <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={false}/>
+              <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={true}/>
             </div>
           </div>
 
