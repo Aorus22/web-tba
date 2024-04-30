@@ -33,7 +33,7 @@ const Nomor_2: React.FC = () => {
         hasil += currentChar;
         if (i < str.length - 1) {
             const nextChar = str[i + 1];
-            if ((/[0-9)]/).test(currentChar)) {
+            if ((/[0-9a-zA-Z)]/).test(currentChar)) {
                 if ((/[0-9a-zA-Z(]/).test(nextChar)) {
                     hasil += '.';
                 }
@@ -45,7 +45,7 @@ const Nomor_2: React.FC = () => {
 
   return (
       <div className={"flex flex-col justify-center items-center min-h-screen"}>
-        <p className={"text-4xl text-center mb-16"}>Konversi Regex ke E-NFA</p>
+        <h3 className={"text-4xl text-center mb-16"}>Konversi Regex ke E-NFA</h3>
         <div className="flex justify-center items-center">
           <div className="w-full max-w-md">
             <form onSubmit={handleSubmit} className="space-y-4 w-full">

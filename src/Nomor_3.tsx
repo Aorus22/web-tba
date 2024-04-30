@@ -92,7 +92,7 @@ const Nomor_3: React.FC = () => {
 
   return (
       <div className={"items-center min-h-screen p-8"}>
-        <p className={"text-4xl text-center"}>Minimize DFA</p>
+        <h3 className={"text-4xl text-center"}>Minimize DFA</h3>
 
         <div className="grid grid-cols-2 justify-center pt-8 px-24">
           <div className="w-full">

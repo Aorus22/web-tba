@@ -150,7 +150,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
             <div className='w-full'>
                 <div>
                     {isUseinputType && (
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                             <p className='text-xl mb-1 font-bold'>Jenis Automata</p>
                             <hr className='mb-4 w-36'/>
                             <select title='Input Tipe' className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.type} onChange={handleTypeChange}>
@@ -166,7 +166,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                 
                 {automata.type !== "" && automata.type !== "REGEX" && (
                     <div>
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                             <p className='text-xl mb-1 font-bold'>State</p>
                             <hr className='mb-4 w-36'/>
                             <button className='block bg-blue-950' type="button" onClick={handleAddState}>Tambah State</button>
@@ -177,7 +177,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                             </div>
                         </div>
 
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                             <p className='text-xl mb-1 font-bold'>Alphabet</p>
                             <hr className='mb-4 w-36'/>
                             <button className='block bg-blue-950' type="button" onClick={handleAddAlphabet}>Tambah Alphabet</button>
@@ -188,7 +188,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                             </div>
                         </div>
 
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                             <p className='text-xl mb-1 font-bold'>Start State</p>
                             <hr className='mb-4 w-36'/>
                             <select title='Input Start State' className='block w-36 h-12 p-3 rounded-md bg-gray-600' value={automata.start_state} onChange={handleStartStateChange}>
@@ -199,7 +199,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                             </select>
                         </div>
 
-                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                        <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                             <p className='text-xl mb-1 font-bold'>Accepting State</p>
                             <hr className='mb-4 w-36' />
                             <button className='block bg-blue-950' type="button" onClick={handleAddAcceptingState}>Tambah Accepting
@@ -213,7 +213,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                         </div>
 
                         {automata.type == "DFA" ? (
-                            <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 pb-4 py-2 pl-2'>
+                            <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 pb-4 py-4 px-6'>
                                 <p className='text-xl mb-1 font-bold'>Transition</p>
                                 <hr className='mb-4 w-36'/>
                                 <div>
@@ -238,7 +238,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                                 </div>
                             </div>
                         ) : (
-                            <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-2 pl-2'>
+                            <div className='rounded-md bg-gray-950 bg-opacity-50 my-4 py-4 px-6'>
                                 <p className='text-xl mb-1 font-bold'>Transition</p>
                                 <hr className='mb-4 w-36' />
                                 <button className='block bg-blue-950' type="button" onClick={handleAddTransition}>Tambah Transition
@@ -261,7 +261,7 @@ const FormComponent: React.FC<FormProps> = ({ automata, setAutomata , isUseinput
                     </div>
                 )}
                 {automata.type == "REGEX" && (                                
-                    <div className='rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-2 pl-2'>
+                    <div className='rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-4 px-6'>
                         <p className='text-xl mb-1 font-bold'>Regular Expression</p>
                         <hr className='mb-4 w-36'/>
                         <input title='Input String'  className="h-12 p-4 bg-gray-600 rounded" value={automata.start_state} onChange={handleRegexChange}/>

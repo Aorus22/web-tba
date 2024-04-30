@@ -16,34 +16,32 @@ const Home: React.FC = () => {
                 <p>Arma Nasrul Mustofa - L0122026</p>
                 <p>Bintang Harida Ramadhan - L0122034</p>
             </div>
-            <div className="grid grid-cols-3 gap-4 w-full items-center mt-14 text-center text-xl">
-                <Link to={"/Nomor_1"} className="flex justify-center items-center h-full">
+            <div className="flex flex-wrap justify-center mt-14 text-center text-xl gap-x-4 gap-y-4 p-4">
+                <Link to={"/Nomor_1"} className="flex justify-center items-center">
                     <p className='w-80 h-40 bg-slate-900 p-6 rounded-3xl text-white hover:bg-gray-700 hover:text-white flex justify-center items-center'>
                         Konversi NFA / E-NFA ke DFA
                     </p>
                 </Link>
 
-                <Link to={"/Nomor_2"} className="flex justify-center items-center h-full">
+                <Link to={"/Nomor_2"} className="flex justify-center items-center">
                     <p className='w-80 h-40 bg-slate-900 p-6 rounded-3xl text-white hover:bg-gray-700 hover:text-white flex justify-center items-center'>
                         Konversi Regex ke E-NFA
                     </p>
                 </Link>
 
-                <Link to={"/Nomor_3"} className="flex justify-center items-center h-full">
+                <Link to={"/Nomor_3"} className="flex justify-center items-center">
                     <p className='w-80 h-40 bg-slate-900 p-6 rounded-3xl text-white hover:bg-gray-700 hover:text-white flex justify-center items-center'>
                         Minimize DFA
                     </p>
                 </Link>
-            </div>
 
-            <div className="grid grid-cols-2 w-full items-center mt-14 text-center text-xl">
-                <Link to={"/Nomor_4"} className="flex justify-center items-center h-full">
+                <Link to={"/Nomor_4"} className="flex justify-center items-center">
                     <p className='w-80 h-40 bg-slate-900 p-6 rounded-3xl text-white hover:bg-gray-700 hover:text-white flex justify-center items-center'>
                         Ekuivalensi 2 DFA
                     </p>
                 </Link>
 
-                <Link to={"/Nomor_5"} className="flex justify-center items-center h-full">
+                <Link to={"/Nomor_5"} className="flex justify-center items-center">
                     <p className='w-80 h-40 bg-slate-900 p-6 rounded-3xl text-white hover:bg-gray-700 hover:text-white flex justify-center items-center'>
                         Test String pada DFA, NFA, E-NFA, dan Regex
                     </p>

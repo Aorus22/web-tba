@@ -102,7 +102,7 @@ const Nomor_4: React.FC = () => {
 
   return (
       <div className={"items-center min-h-screen p-8 pb-24"}>
-        <p className={"text-4xl text-center"}>Ekuivalensi 2 DFA</p>
+        <h3 className={"text-4xl text-center"}>Ekuivalensi 2 DFA</h3>
 
         <div className="grid grid-cols-2 justify-center pt-8 px-24">
           <div className="w-full">

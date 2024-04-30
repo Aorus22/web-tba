@@ -41,8 +41,7 @@ const Nomor_5: React.FC = () => {
 
   function replacePlusAndRemoveDots(inputString: string) {
     const withoutDots = inputString.replace(/\./g, '');
-    const withoutPlus = withoutDots.replace(/\+/g, '|');
-    return withoutPlus;
+    return withoutDots.replace(/\+/g, '|');
   }
 
   const handleSubmit = async () => {
@@ -85,45 +84,47 @@ const Nomor_5: React.FC = () => {
   };
 
   return (
-      <div className={"items-center min-h-screen p-8"}>
-        <p className={"text-4xl text-center"}>Test String pada DFA, NFA, E-NFA, dan Regex</p>
-        <div className="grid grid-cols-2 justify-center pt-8 px-24">
-          <div className="w-full">
-            <div className={'px-5'}>
+      <div className="container mx-auto p-8">
+        <h3 className="text-4xl text-center">Test String pada DFA, NFA, E-NFA, dan Regex</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center pt-8">
+          <div>
+            <div className="px-5">
               <FormComponent automata={automata} setAutomata={setAutomata} isUseinputType={true}/>
             </div>
           </div>
 
-
-          <div className="w-full">
-            <div className='rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-2 pl-2 ml-4'>
-              <p className='text-xl mb-1 font-bold'>Test String</p>
+          <div>
+            <div className="rounded bg-gray-950 bg-opacity-50 text-xl my-4 py-4 px-6">
+              <p className="text-xl mb-1 font-bold">Test String</p>
               <hr className='mb-4 w-36'/>
-              <input title='Input String'  className="h-12 p-4 bg-gray-600 rounded" value={automata.strings} onChange={handleStringChange}/>
+              <input title="Input String" className="w-full h-12 p-4 bg-gray-600 rounded box-border"
+                     value={automata.strings} onChange={handleStringChange}/>
             </div>
-            {/*<div className={'m-4 flex gap-3'}>*/}
-            {/*  {JSON.stringify(automata)}*/}
-            {/*</div>*/}
 
-            <div className='w-full flex justify-center m-4'>
-              <button className='block bg-indigo-600 hover:bg-indigo-700' onClick={handleSubmit}>Submit</button>
+            <div className="flex justify-center">
+              <button
+                  className="block w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleSubmit}>Submit
+              </button>
             </div>
-            <div className={'m-4 h-min-48 w-full pb-8'}>
+
+            <div className="mt-8">
               {svgResponse && (
-                <div className="mt-8 w-full">
-                  <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
-                  <div className="flex justify-center items-center">
-                    <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
-                  </div>                
-                </div>
+                  <div>
+                    <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
+                    <div className="flex justify-center">
+                      <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
+                    </div>
+                  </div>
               )}
             </div>
+
             {response && (
-                <div className="mt-8 w-full m-4 h-48">
+                <div className="mt-8">
                   <h2 className="text-center text-lg font-semibold mb-4">Hasil:</h2>
-                  <div className='flex justify-center items-center'>
+                  <div className="flex justify-center">
                     <div
-                        className={`w-24 p-5 rounded-md text-center text-white font-bold ${response === 'True' ? 'bg-green-500' : 'bg-red-500'}`}>
+                        className={`w-24 p-5 rounded-md text-center font-bold ${response === 'True' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
                       <p>{response}</p>
                     </div>
                   </div>
@@ -132,7 +133,6 @@ const Nomor_5: React.FC = () => {
           </div>
         </div>
       </div>
-
   );
 };
 

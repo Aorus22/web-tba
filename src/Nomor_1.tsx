@@ -44,7 +44,7 @@ const Nomor_3: React.FC = () => {
       }
     };
 
-    handleChange()
+    handleChange().then()
   }, [automata]);
 
 
@@ -79,7 +79,7 @@ const Nomor_3: React.FC = () => {
 
   return (
       <div className={"items-center min-h-screen p-8"}>
-        <p className={"text-4xl text-center mb-8"}>Konversi NFA / E-NFA ke DFA</p>
+        <h3 className={"text-4xl text-center mb-8"}>Konversi NFA / E-NFA ke DFA</h3>
         <div className="grid grid-cols-2 justify-center px-24">
           <div className="w-full">
             <div className={'px-5'}>
@@ -98,7 +98,7 @@ const Nomor_3: React.FC = () => {
             </div>
             <div className={'h-min-48 w-full pb-8'}>
               <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
+                <h2 className="text-center text-lg font-semibold mb-4">Diagram NFA/e-NFA</h2>
                 {svgResponse1 && (
                     <div className="flex justify-center items-center">
                       <div dangerouslySetInnerHTML={{__html: svgResponse1}}></div>
@@ -109,7 +109,7 @@ const Nomor_3: React.FC = () => {
             <div className="mt-8 w-full h-48">
               {svgResponse2 && (
                   <div className="mt-8 w-full">
-                    <h2 className="text-center text-lg font-semibold mb-4">Response from Server:</h2>
+                    <h2 className="text-center text-lg font-semibold mb-4">Diagram DFA</h2>
                     <div className="flex justify-center items-center">
                       <div dangerouslySetInnerHTML={{__html: svgResponse2}}></div>
                     </div>
