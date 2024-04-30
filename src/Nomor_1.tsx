@@ -94,7 +94,7 @@ const Nomor_3: React.FC = () => {
             {/*</div>*/}
 
             <div className='w-full flex justify-center pt-8'>
-              <button className='block' onClick={handleSubmit}>Submit</button>
+              <button className='block bg-indigo-600 hover:bg-indigo-700' onClick={handleSubmit}>Submit</button>
             </div>
             <div className={'h-min-48 w-full pb-8'}>
               <div className="mt-8 w-full">

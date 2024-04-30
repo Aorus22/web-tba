@@ -57,7 +57,7 @@ const Nomor_2: React.FC = () => {
                   type="text"
                   value={regexInput}
                   onChange={handleChange}
-                  className="w-full border-red-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="w-full h-12 p-4 bg-gray-600 rounded-md shadow-sm"
               />
               <button
                   type="submit"

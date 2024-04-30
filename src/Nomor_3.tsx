@@ -107,12 +107,12 @@ const Nomor_3: React.FC = () => {
               <hr className='mb-4 w-36'/>
               <input title='Input String' className="h-12 p-4 bg-gray-600 rounded" value={automata.strings} onChange={handleStringChange}/>
             </div>
-            <div className={'m-4 flex gap-3'}>
+            {/* <div className={'m-4 flex gap-3'}>
               {JSON.stringify(automata)}
-            </div>
+            </div> */}
 
             <div className='w-full flex justify-center m-4'>
-              <button className='block' onClick={handleSubmit}>Submit</button>
+              <button className='block bg-indigo-600 hover:bg-indigo-700' onClick={handleSubmit}>Submit</button>
             </div>
             <div className={'m-4 h-min-48 w-full'}>
               <div className="mt-8 w-full">

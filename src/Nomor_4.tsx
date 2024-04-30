@@ -120,7 +120,7 @@ const Nomor_4: React.FC = () => {
         </div>
 
         <div className='w-full flex justify-center mt-10'>
-          <button className='block' onClick={handleSubmit}>Submit</button>
+          <button className='block bg-indigo-600 hover:bg-indigo-700' onClick={handleSubmit}>Submit</button>
         </div>
 
         {/*<div className={'flex-col w-full m-4'}>*/}

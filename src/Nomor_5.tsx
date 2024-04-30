@@ -15,23 +15,35 @@ const Nomor_5: React.FC = () => {
   });
 
   useEffect(() => {
-    const handleChange = async () => {
-      try {
-        const requestOptions: RequestInit = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(automata)
-        };
-        const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
-        const data = await res.json();
-        setSvgResponse(data.svgResult);
-        console.log(automata)
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    handleChange()
+    handleChange(automata)
   }, [automata]);
+
+  const handleChange = async (automata: Input_Automata) => {
+    if(automata.type == "REGEX"){
+      setSvgResponse("")
+      setResponse("")
+      return
+    }
+    try {
+      const requestOptions: RequestInit = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(automata)
+      };
+      const res = await fetch('http://localhost:5000/draw_diagram', requestOptions);
+      const data = await res.json();
+      setSvgResponse(data.svgResult);
+      setResponse("")
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  function replacePlusAndRemoveDots(inputString: string) {
+    const withoutDots = inputString.replace(/\./g, '');
+    const withoutPlus = withoutDots.replace(/\+/g, '|');
+    return withoutPlus;
+  }
 
   const handleSubmit = async () => {
     try {
@@ -44,6 +56,10 @@ const Nomor_5: React.FC = () => {
           alert('Harap isi semua transisi.');
           return;
         }
+      }
+
+      if (automata.type === 'REGEX'){
+        automata.start_state = replacePlusAndRemoveDots(automata.start_state)
       }
 
       const requestOptions: RequestInit = {
@@ -71,7 +87,6 @@ const Nomor_5: React.FC = () => {
   return (
       <div className={"items-center min-h-screen p-8"}>
         <p className={"text-4xl text-center"}>Test String pada DFA, NFA, E-NFA, dan Regex</p>
-
         <div className="grid grid-cols-2 justify-center pt-8 px-24">
           <div className="w-full">
             <div className={'px-5'}>
@@ -91,17 +106,17 @@ const Nomor_5: React.FC = () => {
             {/*</div>*/}
 
             <div className='w-full flex justify-center m-4'>
-              <button className='block' onClick={handleSubmit}>Submit</button>
+              <button className='block bg-indigo-600 hover:bg-indigo-700' onClick={handleSubmit}>Submit</button>
             </div>
             <div className={'m-4 h-min-48 w-full pb-8'}>
-              <div className="mt-8 w-full">
-                <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
-                {svgResponse && (
-                    <div className="flex justify-center items-center">
-                      <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
-                    </div>
-                )}
-              </div>
+              {svgResponse && (
+                <div className="mt-8 w-full">
+                  <h2 className="text-center text-lg font-semibold mb-4">Diagram</h2>
+                  <div className="flex justify-center items-center">
+                    <div dangerouslySetInnerHTML={{__html: svgResponse}}></div>
+                  </div>                
+                </div>
+              )}
             </div>
             {response && (
                 <div className="mt-8 w-full m-4 h-48">
