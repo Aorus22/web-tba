@@ -33,7 +33,7 @@ const Nomor_2: React.FC = () => {
         hasil += currentChar;
         if (i < str.length - 1) {
             const nextChar = str[i + 1];
-            if ((/[0-9a-zA-Z)]/).test(currentChar)) {
+            if ((/[0-9a-zA-Z)*]/).test(currentChar)) {
                 if ((/[0-9a-zA-Z(]/).test(nextChar)) {
                     hasil += '.';
                 }
