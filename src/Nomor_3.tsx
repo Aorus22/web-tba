@@ -68,7 +68,8 @@ const Nomor_3: React.FC = () => {
       };
       const res = await fetch('http://localhost:5000/nomor_3', requestOptions);
       const data = await res.json();
-      setSvgResponse2(data.svgResult);
+      setSvgResponse1(data.svgResult1);
+      setSvgResponse2(data.svgResult2);
       setResponse1(data.result1)
       setResponse2(data.result2)
 
